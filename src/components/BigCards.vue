@@ -3,24 +3,25 @@
         <div class="container">
             <div class="big-cards-wrapper">
                 <ul class="big-cards-list">
-                    <li v-for="item in bigCards" :key="item.id" class="big-cards-item">
+                    <li class="big-cards-item" v-for="item in bigCards" :key="item.id"
+                    :style="{ backgroundImage: `url(${item.image})` }">
                         <router-link to="/about">
                             <div class="cards-content">
-                            <button class="btn big-cards-btn">
-                                {{ item.btn }}
-                            </button>
-                            <p class="cards-title">
-                                {{ item.title }}
-                            </p>
-                            <div class="cards-bottom">
-                                <p class="cards-date">
-                                    {{ item.date }}
+                                <button class="btn big-cards-btn">
+                                    {{ item.btn }}
+                                </button>
+                                <p class="cards-title">
+                                    {{ item.title }}
                                 </p>
-                                <p class="cards-author">
-                                    {{ item.author }}
-                                </p>
+                                <div class="cards-bottom">
+                                    <p class="cards-date">
+                                        {{ item.data }}
+                                    </p>
+                                    <p class="cards-author">
+                                        {{ item.author }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
                         </router-link>
                     </li>
                 </ul>
@@ -30,29 +31,26 @@
 </template>
 
 <script setup>
-const bigCards = [
-    {
-        id: 1,
-        btn: 'Категория',
-        title: 'Суп “Харчо”',
-        date: '17 июля 2024 г.',
-        author: '/ AksFood'
-    },
-    {
-        id: 2,
-        btn: 'Категория',
-        title: 'Суп “Харчо”',
-        date: '17 июля 2024 г.',
-        author: '/ AksFood'
-    },
-    {
-        id: 3,
-        btn: 'Категория',
-        title: 'Суп “Харчо”',
-        date: '17 июля 2024 г.',
-        author: '/ AksFood'
+import { ref, onMounted } from 'vue';
+
+const bigCards = ref([]);
+
+const fetchPosts = async () => {
+    try {
+        const response = await fetch('https://885190b1d68fb8fb.mokky.dev/products');
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+        
+        bigCards.value = data; 
+    } catch (e) {
+        console.error(e);
     }
-]
+};
+
+onMounted(fetchPosts);
 </script>
 
 <style scoped>
@@ -87,9 +85,9 @@ const bigCards = [
     }
 
     .cards-title {
+        max-width: 180px;
         margin-left: 17px;
         margin-bottom: 21px;
-        width: 125px;
         font-size: 20px;
         font-weight: 400;
         line-height: 24.2px;

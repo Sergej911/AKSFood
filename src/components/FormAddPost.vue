@@ -3,21 +3,63 @@
         <h1>Добавить новый пост</h1>
         <form class="form">
             <label for="title">Заголовок:</label>
-            <input type="text" id="title" name="title" required>
+            <input v-model="form.title" type="text" id="title" name="title" required>
 
-            <label for="image">Изображение:</label>
-            <input type="file" id="image" name="image" required>
+            <label for="data">Дата публикации:</label>
+            <input v-model="form.data" type="text" id="text" name="text" required>
 
-            <label for="description">Описание:</label>
-            <textarea id="description" name="description" rows="5" required></textarea>
+            <label for="author">Автор поста:</label>
+            <input v-model="form.author" type="text" id="author" name="author" rows="5" required>
 
-            <button class="btn" type="submit">Добавить пост</button>
+            <label for="image">Изображение готового блюда:</label>
+            <input type="file" @change="handleFileUpload" id="image" name="image" accept="image/*">
+
+            <button @click.prevent="fetchPosts" class="btn" type="submit">Добавить пост</button>
         </form>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 
+const form = ref({
+    btn: 'Категория',
+    title: '',
+    data: '',
+    author: '',
+    image: null
+})
+
+const handleFileUpload = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            form.value.image = e.target.result
+        };
+        reader.readAsDataURL(file)
+    }
+};
+
+const fetchPosts = async () => {
+    try {
+        const data = await fetch('https://885190b1d68fb8fb.mokky.dev/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(form.value)
+        })
+        const response = await data.json()
+        console.log(response)
+        
+        if (!response.ok) {
+            throw new Error(response.message)
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
 </script>
 
 <style scoped>
@@ -77,10 +119,15 @@
         font-size: 14px;
         line-height: 16.94px;
         font-family: 'Inter', sans-serif;
+        cursor: pointer;
         transition: all 0.3s;
     }
 
     button:hover {
         background-color: #73a044ad;
+    }
+
+    button:active {
+        background-color: #597c33;
     }
 </style>

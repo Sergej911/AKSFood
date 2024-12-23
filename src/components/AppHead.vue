@@ -36,7 +36,7 @@
                     <router-link to="/">Главная</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/support">Завтраки\Напитки</router-link>
+                    <router-link >Завтраки\Напитки</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link >Основные Блюда</router-link>
@@ -49,6 +49,9 @@
                 </li>
                 <li class="nav-item">
                     <router-link to="/post">Добавить Пост</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/support">Поддержка</router-link>
                 </li>
             </ul>
         </nav>
