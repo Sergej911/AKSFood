@@ -4,23 +4,24 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-links">
-                        <a href="#">
+                        <a href="#" target="_blank">
                             <img src="/public/AppHead-img/1.svg" alt="">
                         </a>
-                        <a href="#">
+                        <a href="#" target="_blank">
                             <img src="/public/AppHead-img/2.svg" alt="">
                         </a>
-                        <a href="#">
+                        <a href="#" target="_blank">
                             <img src="/public/AppHead-img/3.svg" alt="">
                         </a>
-                        <a href="#">
+                        <a href="#" target="_blank">
                             <img src="/public/AppHead-img/4.svg" alt="">
                         </a>
-                        <a href="#">
+                        <a href="#" target="_blank">
                             <img src="/public/AppHead-img/5.svg" alt="">
                         </a>
                     </div>
                     <div class="header-search">
+                        <router-link class="register" to="/register">Регистрация</router-link>
                         <img src="/public/AppHead-img/search.svg" width="18" height="18" alt="Поиск">
                         <p>Поиск</p>
                     </div>
@@ -84,6 +85,15 @@
         display: flex;
         align-items: center;
         column-gap: 8px;
+    }
+
+    .register {
+        margin-right: 15px;
+        transition: all 0.3s;
+    }
+
+    .register:hover {
+        color: #ffffff9f;
     }
 
     .header-search p {
