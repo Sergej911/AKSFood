@@ -10,4 +10,5 @@ import AboutPage from './views/AboutPage.vue'
 import SupportPage from './views/SupportPage.vue'
 import RegisterPage from './views/RegisterPage.vue'
 import AuthPage from './views/AuthPage.vue'
+import FavoritesPage from './views/FavoritesPage.vue'
 </script>

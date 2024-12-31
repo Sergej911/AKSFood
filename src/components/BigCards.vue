@@ -4,7 +4,7 @@
             <div class="big-cards-wrapper">
                 <ul class="big-cards-list">
                     <li class="big-cards-item" v-for="item in bigCards" :key="item.id"
-                    :style="{ backgroundImage: `url(${item.image})` }">
+                        :style="{ backgroundImage: `url(${item.image})` }">
                         <router-link to="/about">
                             <div class="cards-content">
                                 <button class="btn big-cards-btn">
@@ -22,6 +22,9 @@
                                     </p>
                                 </div>
                             </div>
+                            <button @click.stop="toggleFavorite(item)" class="favorite-btn">
+                                {{ isFavorite(item) ? 'Убрать из избранного' : 'Добавить в избранное' }}
+                            </button>
                         </router-link>
                     </li>
                 </ul>
@@ -33,7 +36,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-const bigCards = ref([]);
+const bigCards = ref([])
+const favorites = ref([])
 
 const fetchPosts = async () => {
     try {
@@ -48,6 +52,19 @@ const fetchPosts = async () => {
     } catch (e) {
         console.error(e);
     }
+};
+
+const toggleFavorite = (item) => {
+    const index = favorites.value.findIndex(fav => fav.id === item.id);
+    if (index === -1) {
+        favorites.value.push(item); // Добавить в избранное
+    } else {
+        favorites.value.splice(index, 1); // Убрать из избранного
+    }
+};
+
+const isFavorite = (item) => {
+    return favorites.value.some(fav => fav.id === item.id);
 };
 
 onMounted(fetchPosts);

@@ -33,6 +33,11 @@ const router = createRouter({
       name: 'auth',
       component: () => import('@/views/AuthPage.vue'),
     },
+    {
+      path: '/favorite',
+      name: 'favorite',
+      component: () => import('@/views/FavoritesPage.vue'),
+    },
   ],
 })
 
